@@ -86,7 +86,8 @@ def common(lst1, lst2):
 
 
 def get_chunks(sequence, chunk_size):
-    """"""
+    """Split sequences in a least 4 chunks
+    """
     len_seq = len(sequence)
     if len_seq < chunk_size * 4:
         raise ValueError("Sequence length ({}) is too short to be splitted in 4"
@@ -109,6 +110,13 @@ def get_identity(alignment_list):
         if alignment_list[0][i] == alignment_list[1][i]:
             id_nu += 1
     return round(100.0 * id_nu / len(alignment_list[0]), 2)
+
+
+def get_unique_kmer(kmer_dict, sequence, id_seq, kmer_size):
+    pass
+
+def search_mates(kmer_dict, sequence, kmer_size):
+    pass
 
 def chimera_removal(amplicon_file, minseqlen, mincount, chunk_size, kmer_size):
     pass
