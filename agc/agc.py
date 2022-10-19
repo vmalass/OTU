@@ -18,6 +18,7 @@ import sys
 import os
 import gzip
 import statistics
+import textwrap
 from collections import Counter
 # https://github.com/briney/nwalign3
 # ftp://ftp.ncbi.nih.gov/blast/matrices/
@@ -76,57 +77,13 @@ def read_fasta(amplicon_file, minseqlen):
 def dereplication_fulllength(amplicon_file, minseqlen, mincount):
     pass
 
-
-def get_unique(ids):
-    return {}.fromkeys(ids).keys()
-
-
-def common(lst1, lst2): 
-    return list(set(lst1) & set(lst2))
-
-
-def get_chunks(sequence, chunk_size):
-    """Split sequences in a least 4 chunks
-    """
-    len_seq = len(sequence)
-    if len_seq < chunk_size * 4:
-        raise ValueError("Sequence length ({}) is too short to be splitted in 4"
-                         " chunk of size {}".format(len_seq, chunk_size))
-    return [sequence[i:i+chunk_size] 
-              for i in range(0, len_seq, chunk_size) 
-                if i+chunk_size <= len_seq - 1]
-
-
-def cut_kmer(sequence, kmer_size):
-    """Cut sequence into kmers"""
-    for i in range(0, len(sequence) - kmer_size + 1):
-        yield sequence[i:i+kmer_size]
-
 def get_identity(alignment_list):
     """Prend en une liste de séquences alignées au format ["SE-QUENCE1", "SE-QUENCE2"]
     Retourne le pourcentage d'identite entre les deux."""
-    id_nu = 0
-    for i in range(len(alignment_list[0])):
-        if alignment_list[0][i] == alignment_list[1][i]:
-            id_nu += 1
-    return round(100.0 * id_nu / len(alignment_list[0]), 2)
-
-
-def get_unique_kmer(kmer_dict, sequence, id_seq, kmer_size):
-    pass
-
-def search_mates(kmer_dict, sequence, kmer_size):
-    pass
-
-def chimera_removal(amplicon_file, minseqlen, mincount, chunk_size, kmer_size):
     pass
 
 def abundance_greedy_clustering(amplicon_file, minseqlen, mincount, chunk_size, kmer_size):
     pass
-
-def fill(text, width=80):
-    """Split text with a line return to respect fasta format"""
-    return os.linesep.join(text[i:i+width] for i in range(0, len(text), width))
 
 def write_OTU(OTU_list, output_file):
     pass
@@ -141,6 +98,37 @@ def main():
     # Get arguments
     args = get_arguments()
     # Votre programme ici
+
+#==============================================================
+# Chimera removal section
+#==============================================================
+
+def get_unique(ids):
+    return {}.fromkeys(ids).keys()
+
+def common(lst1, lst2): 
+    return list(set(lst1) & set(lst2))
+
+def get_chunks(sequence, chunk_size):
+    """Split sequences in a least 4 chunks
+    """
+    pass
+
+def cut_kmer(sequence, kmer_size):
+    """Cut sequence into kmers"""
+    pass
+
+def get_unique_kmer(kmer_dict, sequence, id_seq, kmer_size):
+    pass
+
+def detect_chimera(perc_identity_matrix):
+    pass
+
+def search_mates(kmer_dict, sequence, kmer_size):
+    pass
+
+def chimera_removal(amplicon_file, minseqlen, mincount, chunk_size, kmer_size):
+    pass
 
 
 if __name__ == '__main__':
