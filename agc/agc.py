@@ -105,8 +105,13 @@ def get_identity(alignment_list):
 def abundance_greedy_clustering(amplicon_file, minseqlen, mincount, chunk_size, kmer_size):
     pass
 
+
 def write_OTU(OTU_list, output_file):
-    pass
+	with open(output_file, "w") as file:
+		for i in range(len(OTU_list)):
+			file.write(f">OTU_{i+1} occurrence:{OTU_list[i][1]}\n")
+			file.write(textwrap.fill(OTU_list[i][0])+"\n")
+
 
 #==============================================================
 # Main program
