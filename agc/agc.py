@@ -86,11 +86,14 @@ def read_fasta(amplicon_file, minseqlen):
 def dereplication_fulllength(amplicon_file, minseqlen, mincount):
     dico = {}
     for seq in read_fasta(amplicon_file, minseqlen):
-        if seq not in dico.key():
+        if seq not in dico:
             dico[seq] = 1
         else:
             dico[seq] += 1
-    print(dico)
+    for seq, seq_count in sorted(dico.items(), key = lambda item: item[1], reverse = True):
+        if seq_count >= mincount:
+            yield [seq, seq_count]
+
 
 def get_identity(alignment_list):
     """Prend en une liste de séquences alignées au format ["SE-QUENCE1", "SE-QUENCE2"]
