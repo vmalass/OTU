@@ -71,7 +71,16 @@ def get_arguments():
     return parser.parse_args()
 
 def read_fasta(amplicon_file, minseqlen):
-    pass
+	with gzip.open(amplicon_file, "rt") as file:
+		seq = ""
+		for line in file:
+			if line.startswith(">"):
+				if len(seq) >= minseqlen:
+					yield seq
+				seq = ""
+			else:
+				seq += line.strip()
+		yield seq
 
 
 def dereplication_fulllength(amplicon_file, minseqlen, mincount):
