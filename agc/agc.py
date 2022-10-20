@@ -96,9 +96,11 @@ def dereplication_fulllength(amplicon_file, minseqlen, mincount):
 
 
 def get_identity(alignment_list):
-    """Prend en une liste de séquences alignées au format ["SE-QUENCE1", "SE-QUENCE2"]
-    Retourne le pourcentage d'identite entre les deux."""
-    pass
+    identity = 0
+    for i in range(len(alignment_list[0])):
+        if alignment_list[0][i] == alignment_list[1][i]:
+            identity += 1
+    return round(100.0 * identity / len(alignment_list[0]), 2)
 
 def abundance_greedy_clustering(amplicon_file, minseqlen, mincount, chunk_size, kmer_size):
     pass
