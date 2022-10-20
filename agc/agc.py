@@ -110,7 +110,7 @@ def abundance_greedy_clustering(amplicon_file, minseqlen, mincount, chunk_size, 
         for j in list_OTU:
             identity = get_identity(nw.global_align(i[0], j[0], gap_open=-1, gap_extend=-1,
             matrix=os.path.abspath(os.path.join(os.path.dirname(__file__),"MATCH"))))
-            if identity >= 97:
+            if identity > 97:
                 flag = False
                 break
         if flag:
