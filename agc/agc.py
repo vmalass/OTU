@@ -135,7 +135,8 @@ def main():
     # Get arguments
     args = get_arguments()
     # Votre programme ici
-
+    OTU_list = abundance_greedy_clustering(args.amplicon_file, args.minseqlen, args.mincount, args.chunk_size, args.kmer_size)
+    write_OTU(OTU_list, args.output_file)
 #==============================================================
 # Chimera removal section
 #==============================================================
