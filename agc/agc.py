@@ -103,7 +103,19 @@ def get_identity(alignment_list):
     return round(100.0 * identity / len(alignment_list[0]), 2)
 
 def abundance_greedy_clustering(amplicon_file, minseqlen, mincount, chunk_size, kmer_size):
-    pass
+    sequence = list(dereplication_fulllength(amplicon_file, minseqlen, mincount))
+    list_OTU = [sequence[0]]
+    for i in sequence[1:]:
+        flag = True
+        for j in list_OTU:
+            identity = get_identity(nw.global_align(i[0], j[0], gap_open=-1, gap_extend=-1,
+            matrix=os.path.abspath(os.path.join(os.path.dirname(__file__),"MATCH"))))
+            if identity >= 97:
+                flag = False
+                break
+        if flag:
+            list_OTU.append(i)
+        return list_OTU
 
 
 def write_OTU(OTU_list, output_file):
